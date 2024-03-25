@@ -33,5 +33,4 @@ services:
                   *cron_vars
               ]
         volumes:
-            - ./src:/code/src
             - ./.env:/code/.env
