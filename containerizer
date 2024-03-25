@@ -1,0 +1,25 @@
+#!/bin/bash
+
+TYPE=$1
+
+ARGUMENTS=("$@")
+
+EXTENSIONS=("yml" "yaml")
+
+# type must be dev or prod
+
+if [ "$TYPE" != "dev" ] && [ "$TYPE" != "prod" ]; then
+	echo "Type must be dev or prod"
+	exit 1
+fi
+
+for EXT in ${EXTENSIONS[@]}; do
+	FILE="docker-compose-$TYPE.$EXT"
+	if [ -f "$FILE" ]; then
+		docker compose -f "$FILE" "${ARGUMENTS[@]:1}"
+		exit 0
+	fi
+done
+
+echo "No valid docker-compose file found"
+exit 1

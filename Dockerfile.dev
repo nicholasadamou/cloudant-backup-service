@@ -1,0 +1,24 @@
+FROM node:lts-alpine3.19 AS base
+
+USER root
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Set the working directory
+WORKDIR /code
+
+# Copy the package.json and pnpm-lock.yaml files
+COPY package.json pnpm-lock.yaml ./
+
+# Install the dependencies
+RUN pnpm install --no-optional --frozen-lockfile
+
+# Copy the source code
+ADD . ./
+
+# Tell Node.js that we are in development mode
+ENV NODE_ENV=development
+
+# Start the application
+CMD ["pnpm", "start:dev"]

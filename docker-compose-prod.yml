@@ -1,0 +1,35 @@
+version: '3.9'
+
+x-cloudant-vars: &cloudant_vars
+    CLOUDANT_APIKEY: ${CLOUDANT_APIKEY}
+    CLOUDANT_URL: ${CLOUDANT_URL}
+    CLOUDANT_USERNAME: ${CLOUDANT_USERNAME}
+    CLOUDANT_PASSWORD: ${CLOUDANT_PASSWORD}
+
+x-cos-vars: &cos_vars
+    COS_BUCKET_NAME: ${COS_BUCKET_NAME}
+    COS_API_KEY: ${COS_API_KEY}
+    COS_ENDPOINT: ${COS_ENDPOINT}
+    COS_INSTANCE_ID: ${COS_INSTANCE_ID}
+
+x-cron-vars: &cron_vars
+    MONTHLY_BACKUP_SCHEDULE: ${MONTHLY_BACKUP_SCHEDULE}
+    WEEKLY_BACKUP_SCHEDULE: ${WEEKLY_BACKUP_SCHEDULE}
+
+services:
+    cloudant-backup-service:
+        build:
+            context: .
+            dockerfile: Dockerfile.prod
+        container_name: cloudant-backup-service
+        hostname: cloudant-backup-service.local
+        image: cloudant-backup-service:latest
+        platform: linux/amd64
+        environment:
+            <<:
+              [
+                  *cloudant_vars,
+                  *cos_vars,
+                  *cron_vars
+              ]
+        user: '1001:0'
