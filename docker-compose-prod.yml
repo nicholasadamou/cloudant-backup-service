@@ -14,7 +14,7 @@ x-cos-vars: &cos_vars
 
 x-cron-vars: &cron_vars
     MONTHLY_BACKUP_SCHEDULE: ${MONTHLY_BACKUP_SCHEDULE}
-    WEEKLY_BACKUP_SCHEDULE: ${WEEKLY_BACKUP_SCHEDULE}
+    DAILY_BACKUP_SCHEDULE: ${DAILY_BACKUP_SCHEDULE}
 
 services:
     cloudant-backup-service:

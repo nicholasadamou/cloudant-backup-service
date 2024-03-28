@@ -105,7 +105,7 @@ class COSService {
 			})
 			.on('end', () => {
 				clearInterval(progressInterval)
-				console.log(`Backup uploaded to S3: ${key}`)
+				console.log(`Backup uploaded to S3: ${db}`)
 			})
 
 		try {
